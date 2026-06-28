@@ -718,6 +718,9 @@
     .hero__video { display: none; }
     .hero__overlay { display: none; }
     .hero {
+      /* svh = small viewport height: excludes the iOS Safari address bar
+         so the hero + bottom controls aren't clipped behind it. */
+      height: 100svh;
       background: linear-gradient(
         135deg,
         #1a0a0a 0%,
@@ -726,6 +729,11 @@
         #0d0505 100%
       );
     }
+    .hero__inner {
+      height: 100svh;
+      min-height: 0;
+    }
+    .media-controls { height: 100svh; }
     /* Reveal the video once the user taps play. */
     body.video-active .hero__video { display: block; }
     body.video-active .hero__overlay { display: block; }
