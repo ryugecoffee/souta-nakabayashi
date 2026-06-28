@@ -611,15 +611,14 @@
   /* Media controls — anchored to the hero's first screen (absolute inside
      .hero) so they sit bottom-right and scroll away with the hero. */
   .media-controls {
-    position: absolute;
-    top: auto;
+    position: fixed;
     bottom: 2rem;
     right: 2rem;
-    z-index: 3;
+    z-index: 120;
     display: flex;
     align-items: center;
     gap: 1rem;
-    pointer-events: none;      /* don't block hero clicks; buttons re-enable */
+    transition: opacity 0.3s ease;
   }
   .media-btn {
     pointer-events: auto;
@@ -1367,6 +1366,20 @@
       muteBtn.setAttribute('aria-pressed', 'false');
     }
   });
+
+  /* ---------- Hide media controls past the first screen ---------- */
+  const mediaControls = document.querySelector('.media-controls');
+  const updateControls = () => {
+    if (window.scrollY > window.innerHeight * 0.8) {
+      mediaControls.style.opacity = '0';
+      mediaControls.style.pointerEvents = 'none';
+    } else {
+      mediaControls.style.opacity = '1';
+      mediaControls.style.pointerEvents = 'auto';
+    }
+  };
+  updateControls();
+  window.addEventListener('scroll', updateControls, { passive: true });
 
   /* ---------- Cookie banner ---------- */
   const cookieBanner = document.getElementById('cookieBanner');
