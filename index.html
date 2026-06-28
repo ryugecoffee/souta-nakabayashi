@@ -609,19 +609,16 @@
     bottom: 1.6rem; right: 1.6rem;
     z-index: 120;
     width: 50px; height: 50px;
-    border-radius: 50%;
-    border: 1px solid rgba(212,175,55,0.5);
-    background: rgba(26,10,10,0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    border: none;
+    background: none;
     color: var(--plaster);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
   }
-  .mute-btn:hover { border-color: var(--gold); transform: scale(1.08); }
+  .mute-btn:hover { color: var(--gold); transform: scale(1.08); }
   .mute-btn svg { width: 20px; height: 20px; }
   .mute-btn .icon-unmute { display: none; }
   .mute-btn.is-unmuted .icon-mute { display: none; }
