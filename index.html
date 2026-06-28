@@ -608,16 +608,17 @@
   }
   .modal__card strong { font-weight: 600; }
 
-  /* Media controls — absolute inside .hero (position: relative) so they
-     stay bottom-right of the hero and scroll away with it. */
+  /* Media controls — anchored to the hero's first screen (absolute inside
+     .hero) so they sit bottom-right and scroll away with the hero. */
   .media-controls {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    top: 0; right: 0;
+    height: 100vh;
     z-index: 3;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 1rem;
+    padding: 0 2rem 2rem 0;   /* right: 2rem, bottom: 2rem */
     pointer-events: none;      /* don't block hero clicks; buttons re-enable */
   }
   .media-btn {
@@ -732,6 +733,7 @@
       height: 100svh;
       min-height: 0;
     }
+    .media-controls { height: 100svh; }
     /* Reveal the video once the user taps play. */
     body.video-active .hero__video { display: block; }
     body.video-active .hero__overlay { display: block; }
