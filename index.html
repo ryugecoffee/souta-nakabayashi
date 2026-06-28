@@ -184,15 +184,18 @@
     z-index: 0;
     pointer-events: none;
     background: #000;
+    overflow: hidden;          /* clip the oversized iframe edges */
   }
-  /* Scale iframe to always cover viewport (16:9) */
+  /* Scale iframe to always cover viewport (16:9), oversized vertically
+     so YouTube's top info bar and bottom related-video UI overflow
+     past the viewport and get clipped by the container. */
   .hero__video iframe {
     position: absolute;
     top: 50%; left: 50%;
     width: 100vw;
-    height: 56.25vw;          /* 16:9 based on width */
-    min-height: 100vh;
-    min-width: 177.78vh;      /* 16:9 based on height */
+    height: calc(56.25vw + 200px);  /* 16:9 based on width + overflow */
+    min-height: calc(100vh + 200px);
+    min-width: 177.78vh;            /* 16:9 based on height */
     transform: translate(-50%, -50%);
     border: 0;
   }
