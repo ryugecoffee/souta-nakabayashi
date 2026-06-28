@@ -63,9 +63,9 @@
     border-bottom: 1px solid transparent;
   }
   .nav.scrolled {
-    background: rgba(26, 10, 10, 0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: rgba(26, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.22);
     height: 68px;
   }
@@ -123,18 +123,16 @@
   .nav.open .nav__toggle span:nth-child(2) { opacity: 0; }
   .nav.open .nav__toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-  /* ---------- Hero ---------- */
+  /* ---------- Hero (parallax) ---------- */
   .hero {
     position: relative;
-    height: 100vh;
-    min-height: 620px;
+    /* Tall to create scroll room: text drifts away while the
+       fixed video stays, revealing a pure-video moment. */
+    height: 180vh;
     width: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
   }
   .hero__video {
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
@@ -159,18 +157,27 @@
     display: none;
   }
   .hero__overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: 1;
+    pointer-events: none;
     background:
       linear-gradient(to bottom, rgba(26,10,10,0.55) 0%, rgba(26,10,10,0.30) 35%, rgba(26,10,10,0.65) 100%),
       radial-gradient(120% 90% at 30% 50%, rgba(26,10,10,0.25) 0%, rgba(26,10,10,0.78) 100%);
   }
+  /* Sticky stage holds the text in view, JS drifts it up + fades it. */
   .hero__inner {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 2;
+    height: 100vh;
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 0 clamp(1.5rem, 8vw, 8rem);
     max-width: 1100px;
+    will-change: transform, opacity;
   }
   .hero__sub {
     font-size: clamp(0.8rem, 1.6vw, 1rem);
@@ -204,10 +211,10 @@
   .hero__meta .dot { color: var(--carmen); margin: 0 0.5em; }
 
   .hero__scroll {
-    position: absolute;
+    position: fixed;
     bottom: 2.2rem; left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
+    z-index: 3;
     font-size: 0.62rem;
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -226,6 +233,13 @@
   @keyframes scrollpulse {
     0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
     50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* Content slides up over the fixed hero video. */
+  main, .footer {
+    position: relative;
+    z-index: 5;
+    background: var(--black-red);
   }
 
   /* ---------- Sections ---------- */
@@ -491,10 +505,8 @@
     .nav.open .nav__links { transform: translateX(0); }
     .nav__links a { font-size: 1rem; }
 
-    /* On mobile show black poster fallback instead of video */
-    .hero__video { display: none; }
-    .hero__poster { display: block; }
-    .mute-btn { display: none; }
+    /* Mobile keeps the video; pointer-events:none guards against mistaps. */
+    .hero__video { pointer-events: none; }
   }
 </style>
 </head>
@@ -660,16 +672,30 @@
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
 
-  /* ---------- YouTube IFrame API (desktop only) ---------- */
+  /* ---------- Hero parallax: text drifts up + fades, video stays fixed ---------- */
+  const heroInner = document.querySelector('.hero__inner');
+  const heroScroll = document.querySelector('.hero__scroll');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const onParallax = () => {
+    const y = window.scrollY;
+    const vh = window.innerHeight || 1;
+    const fade = Math.max(0, 1 - y / (vh * 0.55));
+    if (heroInner && !reduceMotion) {
+      heroInner.style.transform = `translateY(${-y * 0.4}px)`;
+      heroInner.style.opacity = String(fade);
+    }
+    if (heroScroll) heroScroll.style.opacity = String(Math.max(0, 1 - y / 180));
+  };
+  onParallax();
+  window.addEventListener('scroll', onParallax, { passive: true });
+
+  /* ---------- YouTube IFrame API (desktop + mobile) ---------- */
   let player = null;
-  const isMobile = window.matchMedia('(max-width: 760px)').matches;
   const VIDEO_ID = 'PFlrFLjy4O8';
 
-  if (!isMobile) {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  }
+  const ytTag = document.createElement('script');
+  ytTag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytTag);
 
   window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player('ytplayer', {
