@@ -593,17 +593,17 @@
     <span></span><span></span><span></span>
   </button>
   <ul class="nav__links" id="navLinks">
-    <li><a href="#biografia">Biografía</a></li>
-    <li><a href="#premios">Premios</a></li>
-    <li><a href="#conciertos">Conciertos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#biografia" data-i18n="nav.bio">Biografía</a></li>
+    <li><a href="#premios" data-i18n="nav.premios">Premios</a></li>
+    <li><a href="#conciertos" data-i18n="nav.conciertos">Conciertos</a></li>
+    <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
   </ul>
-  <div class="nav__lang" role="group" aria-label="Idioma">
-    <button type="button" class="is-active" aria-pressed="true">ES</button>
+  <div class="nav__lang" id="navLang" role="group" aria-label="Idioma">
+    <button type="button" data-lang="es" class="is-active" aria-pressed="true">ES</button>
     <span class="sep">·</span>
-    <button type="button" aria-pressed="false">JA</button>
+    <button type="button" data-lang="ja" aria-pressed="false">JA</button>
     <span class="sep">·</span>
-    <button type="button" aria-pressed="false">EN</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </div>
 </nav>
 
@@ -613,12 +613,12 @@
   <div class="hero__poster" aria-hidden="true"></div>
   <div class="hero__overlay"></div>
   <div class="hero__inner">
-    <p class="hero__sub reveal visible">Guitarra Clásica</p>
+    <p class="hero__sub reveal visible" data-i18n="hero.sub">Guitarra Clásica</p>
     <h1 class="hero__title reveal visible" data-delay="1">
       Sohta
       <span class="line2">Nakabayashi</span>
     </h1>
-    <p class="hero__meta reveal visible" data-delay="2">
+    <p class="hero__meta reveal visible" data-delay="2" data-i18n="hero.meta">
       Japón <span class="dot">·</span> España
     </p>
   </div>
@@ -628,18 +628,18 @@
 <!-- BIOGRAFÍA -->
 <main>
 <section class="section" id="biografia">
-  <p class="eyebrow reveal">01 — Perfil</p>
-  <h2 class="section__title reveal" data-delay="1">Biografía</h2>
+  <p class="eyebrow reveal" data-i18n="bio.eyebrow">01 — Perfil</p>
+  <h2 class="section__title reveal" data-delay="1" data-i18n="bio.title">Biografía</h2>
   <div class="bio">
-    <p class="bio__lead reveal" data-delay="1">Un sonido delicado y expresivo desde Japón hacia los escenarios de Europa.</p>
+    <p class="bio__lead reveal" data-delay="1" data-i18n="bio.lead">Un sonido delicado y expresivo desde Japón hacia los escenarios de Europa.</p>
     <div class="bio__body reveal" data-delay="2">
-      <p>
+      <p data-i18n="bio.p1">
         Nacido en Yokohama, Japón, Sohta Nakabayashi comenzó a estudiar guitarra a los 3 años.
         En 2018, se graduó con el primer premio del Real Conservatorio Superior de Música de Madrid,
         bajo la tutela de Miguel Trapaga. Actualmente cursa el máster en el Centro Superior de
         Enseñanza Musical Katarina Gurska, donde estudia con Pedro Mateo.
       </p>
-      <p>
+      <p data-i18n="bio.p2">
         Ha ofrecido más de 50 conciertos en España y ha actuado como solista con la Orquesta
         Sinfónica de RTVE, la Orquesta Sinfónica de Tapiola (Finlandia) y la Orquesta Sinfónica
         Carlos III. Ha actuado en el Auditorio del Museo Nacional del Prado y en salas de toda Europa,
@@ -653,31 +653,31 @@
 
 <!-- PREMIOS -->
 <section class="section" id="premios">
-  <p class="eyebrow reveal">02 — Reconocimientos</p>
-  <h2 class="section__title reveal" data-delay="1">Premios <em>Internacionales</em></h2>
-  <p class="premios__sub reveal" data-delay="1">Más de 20 premios en competiciones internacionales de todo el mundo</p>
+  <p class="eyebrow reveal" data-i18n="premios.eyebrow">02 — Reconocimientos</p>
+  <h2 class="section__title reveal" data-delay="1" data-i18n="premios.title">Premios <em>Internacionales</em></h2>
+  <p class="premios__sub reveal" data-delay="1" data-i18n="premios.sub">Más de 20 premios en competiciones internacionales de todo el mundo</p>
 
   <h3 class="award-year reveal">2024</h3>
   <ul class="award-list">
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Guitarra Miguel Llobet, Barcelona (España)</span></li>
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Guitarra de Tubinga (Alemania)</span></li>
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Texas International Guitar Competition (EE.UU.)</span></li>
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Gandía (España)</span></li>
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Juventudes Musicales (España)</span></li>
-    <li class="reveal"><span class="award-place"><strong>2º Premio</strong> — Concurso Internacional Mantovani (Italia)</span></li>
-    <li class="reveal"><span class="award-place"><strong>3er Premio</strong> — Concurso Internacional José Tomás (España)</span></li>
-    <li class="reveal"><span class="award-place"><strong>3er Premio</strong> — Concurso Internacional de la Alhambra (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a1"><strong>1er Premio</strong> — Concurso Internacional de Guitarra Miguel Llobet, Barcelona (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a2"><strong>1er Premio</strong> — Concurso Internacional de Guitarra de Tubinga (Alemania)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a3"><strong>1er Premio</strong> — Texas International Guitar Competition (EE.UU.)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a4"><strong>1er Premio</strong> — Concurso Internacional de Gandía (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a5"><strong>1er Premio</strong> — Juventudes Musicales (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a6"><strong>2º Premio</strong> — Concurso Internacional Mantovani (Italia)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a7"><strong>3er Premio</strong> — Concurso Internacional José Tomás (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a8"><strong>3er Premio</strong> — Concurso Internacional de la Alhambra (España)</span></li>
   </ul>
 
   <h3 class="award-year reveal">2022</h3>
   <ul class="award-list">
-    <li class="reveal"><span class="award-place"><strong>Semifinalista</strong> — Concurso Internacional de Guitarra Francisco Tárrega (España)</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a9"><strong>Semifinalista</strong> — Concurso Internacional de Guitarra Francisco Tárrega (España)</span></li>
   </ul>
 
   <h3 class="award-year reveal">2021</h3>
   <ul class="award-list">
-    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — [placeholder]</span></li>
-    <li class="reveal"><span class="award-place"><strong>2º Premio</strong> — [placeholder]</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a10"><strong>1er Premio</strong> — [placeholder]</span></li>
+    <li class="reveal"><span class="award-place" data-i18n="award.a11"><strong>2º Premio</strong> — [placeholder]</span></li>
   </ul>
 </section>
 
@@ -685,42 +685,42 @@
 
 <!-- CONCIERTOS -->
 <section class="section" id="conciertos">
-  <p class="eyebrow reveal">03 — Agenda</p>
-  <h2 class="section__title reveal" data-delay="1">Conciertos <em>Recientes</em></h2>
+  <p class="eyebrow reveal" data-i18n="conc.eyebrow">03 — Agenda</p>
+  <h2 class="section__title reveal" data-delay="1" data-i18n="conc.title">Conciertos <em>Recientes</em></h2>
   <ul class="timeline">
     <li class="reveal">
-      <p class="ev-name">Orquesta Sinfónica de RTVE</p>
-      <p class="ev-place">Gira de conciertos, España (2025, previsto)</p>
+      <p class="ev-name" data-i18n="conc.c1n">Orquesta Sinfónica de RTVE</p>
+      <p class="ev-place" data-i18n="conc.c1p">Gira de conciertos, España (2025, previsto)</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Concierto en 20 ciudades españolas</p>
-      <p class="ev-place">Gira en solitario (2025, previsto)</p>
+      <p class="ev-name" data-i18n="conc.c2n">Concierto en 20 ciudades españolas</p>
+      <p class="ev-place" data-i18n="conc.c2p">Gira en solitario (2025, previsto)</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Auditorio del Museo Nacional del Prado, Madrid</p>
-      <p class="ev-place">Concierto con RCSMM</p>
+      <p class="ev-name" data-i18n="conc.c3n">Auditorio del Museo Nacional del Prado, Madrid</p>
+      <p class="ev-place" data-i18n="conc.c3p">Concierto con RCSMM</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Festival Internacional de Guitarra Emilio Pujol</p>
+      <p class="ev-name" data-i18n="conc.c4n">Festival Internacional de Guitarra Emilio Pujol</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Festival de Guitarra de la Ciudad de Elx</p>
+      <p class="ev-name" data-i18n="conc.c5n">Festival de Guitarra de la Ciudad de Elx</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Garrigues Guitarfest 2025</p>
-      <p class="ev-place">Església Sant Salvador, Torrebesses</p>
+      <p class="ev-name" data-i18n="conc.c6n">Garrigues Guitarfest 2025</p>
+      <p class="ev-place" data-i18n="conc.c6p">Església Sant Salvador, Torrebesses</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Orquesta Sinfónica de Tapiola (Finlandia)</p>
-      <p class="ev-place">Concierto de Aranjuez</p>
+      <p class="ev-name" data-i18n="conc.c7n">Orquesta Sinfónica de Tapiola (Finlandia)</p>
+      <p class="ev-place" data-i18n="conc.c7p">Concierto de Aranjuez</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Orquesta Sinfónica Carlos III (España)</p>
-      <p class="ev-place">Concierto de Aranjuez</p>
+      <p class="ev-name" data-i18n="conc.c8n">Orquesta Sinfónica Carlos III (España)</p>
+      <p class="ev-place" data-i18n="conc.c8p">Concierto de Aranjuez</p>
     </li>
     <li class="reveal">
-      <p class="ev-name">Recientemente en Europa, América y Japón</p>
-      <p class="ev-place">Conciertos y masterclasses</p>
+      <p class="ev-name" data-i18n="conc.c9n">Recientemente en Europa, América y Japón</p>
+      <p class="ev-place" data-i18n="conc.c9p">Conciertos y masterclasses</p>
     </li>
   </ul>
 </section>
@@ -729,9 +729,9 @@
 
 <!-- CONTACTO -->
 <section class="section contacto" id="contacto">
-  <p class="eyebrow reveal">04 — Contacto</p>
-  <h2 class="section__title reveal" data-delay="1">Contacto</h2>
-  <p class="contacto__text reveal" data-delay="1">Para consultas de conciertos y colaboraciones</p>
+  <p class="eyebrow reveal" data-i18n="cont.eyebrow">04 — Contacto</p>
+  <h2 class="section__title reveal" data-delay="1" data-i18n="cont.title">Contacto</h2>
+  <p class="contacto__text reveal" data-delay="1" data-i18n="cont.text">Para consultas de conciertos y colaboraciones</p>
   <a class="contacto__mail reveal" data-delay="2" href="mailto:contacto@sohtanakabayashi.com">contacto@sohtanakabayashi.com</a>
   <p class="contacto__social reveal" data-delay="2">
     Instagram — <a href="https://instagram.com/sohtanakabayashi" target="_blank" rel="noopener">@sohtanakabayashi</a>
@@ -742,7 +742,7 @@
 <!-- FOOTER -->
 <footer class="footer">
   <span class="footer__brand">Sohta <span>·</span> Nakabayashi</span>
-  <span>© 2025 Sohta Nakabayashi. Todos los derechos reservados.</span>
+  <span data-i18n="footer.copy">© 2025 Sohta Nakabayashi. Todos los derechos reservados.</span>
 </footer>
 
 <!-- MUTE BUTTON -->
@@ -763,6 +763,149 @@
   window.scrollTo(0, 0);
   // Cancel any browser-restored / anchor scroll after layout settles.
   window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  /* ---------- Internationalization (ES / JA / EN) ---------- */
+  const I18N = {
+    es: {
+      'nav.bio': 'Biografía', 'nav.premios': 'Premios', 'nav.conciertos': 'Conciertos', 'nav.contacto': 'Contacto',
+      'hero.sub': 'Guitarra Clásica', 'hero.meta': 'Japón <span class="dot">·</span> España',
+      'bio.eyebrow': '01 — Perfil', 'bio.title': 'Biografía',
+      'bio.lead': 'Un sonido delicado y expresivo desde Japón hacia los escenarios de Europa.',
+      'bio.p1': 'Nacido en Yokohama, Japón, Sohta Nakabayashi comenzó a estudiar guitarra a los 3 años. En 2018, se graduó con el primer premio del Real Conservatorio Superior de Música de Madrid, bajo la tutela de Miguel Trapaga. Actualmente cursa el máster en el Centro Superior de Enseñanza Musical Katarina Gurska, donde estudia con Pedro Mateo.',
+      'bio.p2': 'Ha ofrecido más de 50 conciertos en España y ha actuado como solista con la Orquesta Sinfónica de RTVE, la Orquesta Sinfónica de Tapiola (Finlandia) y la Orquesta Sinfónica Carlos III. Ha actuado en el Auditorio del Museo Nacional del Prado y en salas de toda Europa, América y Japón.',
+      'premios.eyebrow': '02 — Reconocimientos', 'premios.title': 'Premios <em>Internacionales</em>',
+      'premios.sub': 'Más de 20 premios en competiciones internacionales de todo el mundo',
+      'award.a1': '<strong>1er Premio</strong> — Concurso Internacional de Guitarra Miguel Llobet, Barcelona (España)',
+      'award.a2': '<strong>1er Premio</strong> — Concurso Internacional de Guitarra de Tubinga (Alemania)',
+      'award.a3': '<strong>1er Premio</strong> — Texas International Guitar Competition (EE.UU.)',
+      'award.a4': '<strong>1er Premio</strong> — Concurso Internacional de Gandía (España)',
+      'award.a5': '<strong>1er Premio</strong> — Juventudes Musicales (España)',
+      'award.a6': '<strong>2º Premio</strong> — Concurso Internacional Mantovani (Italia)',
+      'award.a7': '<strong>3er Premio</strong> — Concurso Internacional José Tomás (España)',
+      'award.a8': '<strong>3er Premio</strong> — Concurso Internacional de la Alhambra (España)',
+      'award.a9': '<strong>Semifinalista</strong> — Concurso Internacional de Guitarra Francisco Tárrega (España)',
+      'award.a10': '<strong>1er Premio</strong> — [placeholder]',
+      'award.a11': '<strong>2º Premio</strong> — [placeholder]',
+      'conc.eyebrow': '03 — Agenda', 'conc.title': 'Conciertos <em>Recientes</em>',
+      'conc.c1n': 'Orquesta Sinfónica de RTVE', 'conc.c1p': 'Gira de conciertos, España (2025, previsto)',
+      'conc.c2n': 'Concierto en 20 ciudades españolas', 'conc.c2p': 'Gira en solitario (2025, previsto)',
+      'conc.c3n': 'Auditorio del Museo Nacional del Prado, Madrid', 'conc.c3p': 'Concierto con RCSMM',
+      'conc.c4n': 'Festival Internacional de Guitarra Emilio Pujol',
+      'conc.c5n': 'Festival de Guitarra de la Ciudad de Elx',
+      'conc.c6n': 'Garrigues Guitarfest 2025', 'conc.c6p': 'Església Sant Salvador, Torrebesses',
+      'conc.c7n': 'Orquesta Sinfónica de Tapiola (Finlandia)', 'conc.c7p': 'Concierto de Aranjuez',
+      'conc.c8n': 'Orquesta Sinfónica Carlos III (España)', 'conc.c8p': 'Concierto de Aranjuez',
+      'conc.c9n': 'Recientemente en Europa, América y Japón', 'conc.c9p': 'Conciertos y masterclasses',
+      'cont.eyebrow': '04 — Contacto', 'cont.title': 'Contacto',
+      'cont.text': 'Para consultas de conciertos y colaboraciones',
+      'footer.copy': '© 2025 Sohta Nakabayashi. Todos los derechos reservados.'
+    },
+    ja: {
+      'nav.bio': '略歴', 'nav.premios': '受賞歴', 'nav.conciertos': '演奏会', 'nav.contacto': 'お問い合わせ',
+      'hero.sub': 'クラシックギター', 'hero.meta': '日本 <span class="dot">·</span> スペイン',
+      'bio.eyebrow': '01 — プロフィール', 'bio.title': '略歴',
+      'bio.lead': '日本からヨーロッパの舞台へ。繊細で表情豊かな響き。',
+      'bio.p1': '日本・横浜に生まれ、3歳でギターを始める。2018年、ミゲル・トラパガに師事し、マドリード王立高等音楽院を首席で卒業。現在はカタリーナ・グルスカ高等音楽教育センターの修士課程に在籍し、ペドロ・マテオに師事している。',
+      'bio.p2': 'スペイン国内で50回以上の演奏会を行い、RTVE交響楽団、タピオラ・シンフォニエッタ（フィンランド）、カルロス3世交響楽団とソリストとして共演。プラド国立美術館講堂をはじめ、ヨーロッパ・南北アメリカ・日本各地のホールで演奏している。',
+      'premios.eyebrow': '02 — 受賞歴', 'premios.title': '国際<em>コンクール</em>',
+      'premios.sub': '世界各地の国際コンクールで20以上の受賞',
+      'award.a1': '<strong>第1位</strong> — ミゲル・リョベート国際ギターコンクール（バルセロナ／スペイン）',
+      'award.a2': '<strong>第1位</strong> — テュービンゲン国際ギターコンクール（ドイツ）',
+      'award.a3': '<strong>第1位</strong> — テキサス国際ギターコンクール（アメリカ）',
+      'award.a4': '<strong>第1位</strong> — ガンディア国際コンクール（スペイン）',
+      'award.a5': '<strong>第1位</strong> — フベントゥデス・ムジカレス（スペイン）',
+      'award.a6': '<strong>第2位</strong> — マントヴァーニ国際コンクール（イタリア）',
+      'award.a7': '<strong>第3位</strong> — ホセ・トマス国際コンクール（スペイン）',
+      'award.a8': '<strong>第3位</strong> — アルハンブラ国際コンクール（スペイン）',
+      'award.a9': '<strong>セミファイナリスト</strong> — フランシスコ・タレガ国際ギターコンクール（スペイン）',
+      'award.a10': '<strong>第1位</strong> — [placeholder]',
+      'award.a11': '<strong>第2位</strong> — [placeholder]',
+      'conc.eyebrow': '03 — 演奏予定', 'conc.title': '最近の<em>演奏会</em>',
+      'conc.c1n': 'RTVE交響楽団', 'conc.c1p': 'スペイン公演ツアー（2025年予定）',
+      'conc.c2n': 'スペイン20都市での演奏会', 'conc.c2p': 'ソロ・ツアー（2025年予定）',
+      'conc.c3n': 'プラド国立美術館講堂（マドリード）', 'conc.c3p': 'マドリード王立高等音楽院との共演',
+      'conc.c4n': 'エミリオ・プジョル国際ギターフェスティバル',
+      'conc.c5n': 'エルチェ市ギターフェスティバル',
+      'conc.c6n': 'Garrigues Guitarfest 2025', 'conc.c6p': 'サン・サルバドール教会（トレベセス）',
+      'conc.c7n': 'タピオラ・シンフォニエッタ（フィンランド）', 'conc.c7p': '《アランフェス協奏曲》',
+      'conc.c8n': 'カルロス3世交響楽団（スペイン）', 'conc.c8p': '《アランフェス協奏曲》',
+      'conc.c9n': '近年はヨーロッパ・南北アメリカ・日本各地で', 'conc.c9p': '演奏会とマスタークラス',
+      'cont.eyebrow': '04 — お問い合わせ', 'cont.title': 'お問い合わせ',
+      'cont.text': '演奏会のご依頼・コラボレーションのご相談はこちら',
+      'footer.copy': '© 2025 Sohta Nakabayashi. 無断転載を禁じます。'
+    },
+    en: {
+      'nav.bio': 'Biography', 'nav.premios': 'Awards', 'nav.conciertos': 'Concerts', 'nav.contacto': 'Contact',
+      'hero.sub': 'Classical Guitar', 'hero.meta': 'Japan <span class="dot">·</span> Spain',
+      'bio.eyebrow': '01 — Profile', 'bio.title': 'Biography',
+      'bio.lead': 'A delicate, expressive sound — from Japan to the stages of Europe.',
+      'bio.p1': 'Born in Yokohama, Japan, Sohta Nakabayashi began studying guitar at the age of three. In 2018 he graduated with first prize from the Royal Conservatory of Music of Madrid, under the tutelage of Miguel Trápaga. He is currently pursuing a master’s degree at the Centro Superior de Enseñanza Musical Katarina Gurska, where he studies with Pedro Mateo.',
+      'bio.p2': 'He has given more than 50 concerts in Spain and has performed as a soloist with the RTVE Symphony Orchestra, the Tapiola Sinfonietta (Finland) and the Carlos III Symphony Orchestra. He has performed at the Auditorium of the Prado National Museum and in halls across Europe, the Americas and Japan.',
+      'premios.eyebrow': '02 — Awards', 'premios.title': 'International <em>Awards</em>',
+      'premios.sub': 'More than 20 prizes in international competitions around the world',
+      'award.a1': '<strong>1st Prize</strong> — Miguel Llobet International Guitar Competition, Barcelona (Spain)',
+      'award.a2': '<strong>1st Prize</strong> — Tübingen International Guitar Competition (Germany)',
+      'award.a3': '<strong>1st Prize</strong> — Texas International Guitar Competition (USA)',
+      'award.a4': '<strong>1st Prize</strong> — Gandía International Competition (Spain)',
+      'award.a5': '<strong>1st Prize</strong> — Juventudes Musicales (Spain)',
+      'award.a6': '<strong>2nd Prize</strong> — Mantovani International Competition (Italy)',
+      'award.a7': '<strong>3rd Prize</strong> — José Tomás International Competition (Spain)',
+      'award.a8': '<strong>3rd Prize</strong> — Alhambra International Competition (Spain)',
+      'award.a9': '<strong>Semi-finalist</strong> — Francisco Tárrega International Guitar Competition (Spain)',
+      'award.a10': '<strong>1st Prize</strong> — [placeholder]',
+      'award.a11': '<strong>2nd Prize</strong> — [placeholder]',
+      'conc.eyebrow': '03 — Agenda', 'conc.title': 'Recent <em>Concerts</em>',
+      'conc.c1n': 'RTVE Symphony Orchestra', 'conc.c1p': 'Concert tour, Spain (2025, planned)',
+      'conc.c2n': 'Concerts in 20 Spanish cities', 'conc.c2p': 'Solo tour (2025, planned)',
+      'conc.c3n': 'Auditorium of the Prado National Museum, Madrid', 'conc.c3p': 'Concert with the RCSMM',
+      'conc.c4n': 'Emilio Pujol International Guitar Festival',
+      'conc.c5n': 'City of Elx Guitar Festival',
+      'conc.c6n': 'Garrigues Guitarfest 2025', 'conc.c6p': 'Església Sant Salvador, Torrebesses',
+      'conc.c7n': 'Tapiola Sinfonietta (Finland)', 'conc.c7p': 'Concierto de Aranjuez',
+      'conc.c8n': 'Carlos III Symphony Orchestra (Spain)', 'conc.c8p': 'Concierto de Aranjuez',
+      'conc.c9n': 'Recently across Europe, the Americas and Japan', 'conc.c9p': 'Concerts and masterclasses',
+      'cont.eyebrow': '04 — Contact', 'cont.title': 'Contact',
+      'cont.text': 'For concert bookings and collaborations',
+      'footer.copy': '© 2025 Sohta Nakabayashi. All rights reserved.'
+    }
+  };
+  const DOC_TITLE = {
+    es: 'Sohta Nakabayashi · Guitarra Clásica',
+    ja: 'Sohta Nakabayashi · クラシックギタリスト 中林奏太',
+    en: 'Sohta Nakabayashi · Classical Guitarist'
+  };
+  const i18nNodes = document.querySelectorAll('[data-i18n]');
+  const langButtons = document.querySelectorAll('#navLang button');
+
+  function applyLang(lang) {
+    const dict = I18N[lang] || I18N.es;
+    i18nNodes.forEach((el) => {
+      const val = dict[el.getAttribute('data-i18n')];
+      if (val != null) el.innerHTML = val;
+    });
+    document.documentElement.lang = lang;
+    if (DOC_TITLE[lang]) document.title = DOC_TITLE[lang];
+    langButtons.forEach((b) => {
+      const active = b.dataset.lang === lang;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+
+  langButtons.forEach((b) =>
+    b.addEventListener('click', () => applyLang(b.dataset.lang))
+  );
+
+  // Restore saved choice, else honor browser language, else default ES.
+  let initial = 'es';
+  try { initial = localStorage.getItem('lang') || initial; } catch (e) {}
+  if (!localStorage.getItem('lang')) {
+    const nav0 = (navigator.language || 'es').toLowerCase();
+    if (nav0.startsWith('ja')) initial = 'ja';
+    else if (nav0.startsWith('en')) initial = 'en';
+  }
+  applyLang(initial);
 
   /* ---------- Navbar scroll state ---------- */
   const nav = document.getElementById('nav');
