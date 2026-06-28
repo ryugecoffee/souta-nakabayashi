@@ -756,6 +756,14 @@
 </button>
 
 <script>
+  /* ---------- Always start at the hero on load ---------- */
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  // Cancel any browser-restored / anchor scroll after layout settles.
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
   /* ---------- Navbar scroll state ---------- */
   const nav = document.getElementById('nav');
   const onScroll = () => {
