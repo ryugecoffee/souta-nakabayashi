@@ -615,11 +615,17 @@
   }
   .modal__card strong { font-weight: 600; }
 
-  /* Mute button */
-  .mute-btn {
+  /* Media controls (play/pause + mute) */
+  .media-controls {
     position: fixed;
     bottom: 1.6rem; right: 1.6rem;
     z-index: 120;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: opacity 0.3s ease;
+  }
+  .media-btn {
     width: 50px; height: 50px;
     border: none;
     background: none;
@@ -630,11 +636,14 @@
     justify-content: center;
     transition: color 0.3s ease, transform 0.3s ease;
   }
-  .mute-btn:hover { color: var(--gold); transform: scale(1.08); }
-  .mute-btn svg { width: 20px; height: 20px; }
+  .media-btn:hover { color: var(--gold); transform: scale(1.08); }
+  .media-btn svg { width: 20px; height: 20px; }
   .mute-btn .icon-unmute { display: none; }
   .mute-btn.is-unmuted .icon-mute { display: none; }
   .mute-btn.is-unmuted .icon-unmute { display: block; }
+  .play-btn .icon-pause { display: none; }
+  .play-btn.is-playing .icon-play { display: none; }
+  .play-btn.is-playing .icon-pause { display: block; }
 
   /* ---------- Reveal animation ---------- */
   .reveal {
@@ -720,11 +729,13 @@
         #0d0505 100%
       );
     }
-    .mute-btn { display: none; }
+    /* Reveal the video once the user taps play. */
+    body.video-active .hero__video { display: block; }
+    body.video-active .hero__overlay { display: block; }
   }
 
-  /* Hide the mute button while the full-screen menu is open. */
-  .nav.open ~ .mute-btn { opacity: 0; pointer-events: none; }
+  /* Hide the media controls while the full-screen menu is open. */
+  .nav.open ~ .media-controls { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -955,15 +966,25 @@
   </div>
 </div>
 
-<!-- MUTE BUTTON -->
-<button class="mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido">
-  <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-  </svg>
-  <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-  </svg>
-</button>
+<!-- MEDIA CONTROLS -->
+<div class="media-controls">
+  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir / pausar vídeo" title="Reproducir / pausar">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
+    </svg>
+  </button>
+  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido">
+    <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
+</div>
 
 <script>
   /* ---------- Always start at the hero on load ---------- */
@@ -1201,12 +1222,17 @@
   onParallax();
   window.addEventListener('scroll', onParallax, { passive: true });
 
-  /* ---------- YouTube IFrame API (desktop only) ---------- */
+  /* ---------- YouTube IFrame API + media controls ---------- */
   let player = null;
+  let apiRequested = false;
   const VIDEO_ID = 'PFlrFLjy4O8';
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const playBtn = document.getElementById('playBtn');
+  const muteBtn = document.getElementById('muteBtn');
 
-  if (!isMobile) {
+  function loadYouTubeAPI() {
+    if (apiRequested) return;
+    apiRequested = true;
     const ytTag = document.createElement('script');
     ytTag.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(ytTag);
@@ -1234,13 +1260,32 @@
         onStateChange: (e) => {
           // Safety net: restart if it ever ends
           if (e.data === YT.PlayerState.ENDED) e.target.playVideo();
+          // Sync play/pause icon with the real player state.
+          playBtn.classList.toggle('is-playing', e.data === YT.PlayerState.PLAYING);
         }
       }
     });
   };
 
+  // Desktop autoplays muted; mobile waits for a tap on play.
+  if (!isMobile) loadYouTubeAPI();
+
+  /* ---------- Play / pause ---------- */
+  playBtn.addEventListener('click', () => {
+    // First tap on mobile: reveal the video and lazy-load the API.
+    document.body.classList.add('video-active');
+    if (!player || typeof player.getPlayerState !== 'function') {
+      loadYouTubeAPI();   // onYouTubeIframeAPIReady creates + autoplays it
+      return;
+    }
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+    } else {
+      player.playVideo();
+    }
+  });
+
   /* ---------- Mute toggle ---------- */
-  const muteBtn = document.getElementById('muteBtn');
   muteBtn.addEventListener('click', () => {
     if (!player || typeof player.isMuted !== 'function') return;
     if (player.isMuted()) {
