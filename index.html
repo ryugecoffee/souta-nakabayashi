@@ -729,6 +729,66 @@
 
   /* Hide the media controls while the full-screen menu is open. */
   .nav.open ~ .media-controls { opacity: 0; pointer-events: none; }
+
+  /* Cookie banner */
+  .cookie {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 150;
+    background: var(--black-red);
+    border-top: 1px solid var(--gold);
+    padding: 1.1rem clamp(1.5rem, 5vw, 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.6rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cookie.show { transform: translateY(0); }
+  .cookie[hidden] { display: none; }
+  .cookie__text {
+    color: var(--plaster);
+    opacity: 0.85;
+    max-width: 62ch;
+    line-height: 1.6;
+  }
+  .cookie__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    flex-shrink: 0;
+  }
+  .cookie__more {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--plaster);
+    opacity: 0.7;
+    transition: color 0.3s ease, opacity 0.3s ease;
+  }
+  .cookie__more:hover { opacity: 1; color: var(--gold); }
+  .cookie__accept {
+    background: var(--gold);
+    color: var(--black-red);
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .cookie__accept:hover { background: #e6c456; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -955,7 +1015,7 @@
 
 <!-- MEDIA CONTROLS -->
 <div class="media-controls">
-  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir / pausar vídeo" title="Reproducir / pausar">
+  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir" title="Reproducir / pausar">
     <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M8 5v14l11-7z"/>
     </svg>
@@ -963,7 +1023,7 @@
       <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
     </svg>
   </button>
-  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido">
+  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido" aria-pressed="false">
     <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
     </svg>
@@ -971,6 +1031,15 @@
       <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
     </svg>
   </button>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie" id="cookieBanner" role="dialog" aria-label="Aviso de cookies" hidden>
+  <p class="cookie__text">Este sitio utiliza Google Fonts. Al continuar, aceptas el uso de cookies técnicas.</p>
+  <div class="cookie__actions">
+    <button type="button" class="cookie__more" data-modal="legal">Más información</button>
+    <button type="button" class="cookie__accept" id="cookieAccept">Aceptar</button>
+  </div>
 </div>
 
 <script>
@@ -1247,8 +1316,10 @@
         onStateChange: (e) => {
           // Safety net: restart if it ever ends
           if (e.data === YT.PlayerState.ENDED) e.target.playVideo();
-          // Sync play/pause icon with the real player state.
-          playBtn.classList.toggle('is-playing', e.data === YT.PlayerState.PLAYING);
+          // Sync play/pause icon + aria-label with the real player state.
+          const playing = e.data === YT.PlayerState.PLAYING;
+          playBtn.classList.toggle('is-playing', playing);
+          playBtn.setAttribute('aria-label', playing ? 'Pausar' : 'Reproducir');
         }
       }
     });
@@ -1279,12 +1350,29 @@
       player.unMute();
       player.setVolume(100);
       muteBtn.classList.add('is-unmuted');
-      muteBtn.setAttribute('aria-label', 'Silenciar sonido');
+      muteBtn.setAttribute('aria-label', 'Silenciar');
+      muteBtn.setAttribute('aria-pressed', 'true');
     } else {
       player.mute();
       muteBtn.classList.remove('is-unmuted');
       muteBtn.setAttribute('aria-label', 'Activar sonido');
+      muteBtn.setAttribute('aria-pressed', 'false');
     }
+  });
+
+  /* ---------- Cookie banner ---------- */
+  const cookieBanner = document.getElementById('cookieBanner');
+  const cookieAccept = document.getElementById('cookieAccept');
+  let cookieConsent = null;
+  try { cookieConsent = localStorage.getItem('cookie_consent'); } catch (e) {}
+  if (cookieConsent !== 'true') {
+    cookieBanner.hidden = false;
+    requestAnimationFrame(() => cookieBanner.classList.add('show'));
+  }
+  cookieAccept.addEventListener('click', () => {
+    try { localStorage.setItem('cookie_consent', 'true'); } catch (e) {}
+    cookieBanner.classList.remove('show');
+    setTimeout(() => { cookieBanner.hidden = true; }, 500);
   });
 </script>
 </body>
