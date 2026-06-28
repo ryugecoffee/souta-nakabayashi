@@ -608,12 +608,21 @@
   }
   .modal__card strong { font-weight: 600; }
 
-  /* Media controls — anchored inside the hero's first screen so they
-     scroll away with the page instead of following the viewport. */
-  .media-btn {
+  /* Media controls — anchored to the hero's first screen (absolute inside
+     .hero) so they sit bottom-right and scroll away with the hero. */
+  .media-controls {
     position: absolute;
-    top: calc(100vh - 50px - 2rem);
+    top: 0; right: 0;
+    height: 100vh;
     z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 0 2rem 2rem 0;   /* right: 2rem, bottom: 2rem */
+    pointer-events: none;      /* don't block hero clicks; buttons re-enable */
+  }
+  .media-btn {
+    pointer-events: auto;
     width: 50px; height: 50px;
     border: none;
     background: none;
@@ -624,9 +633,6 @@
     justify-content: center;
     transition: color 0.3s ease, transform 0.3s ease;
   }
-  /* Side by side at bottom-right, 1rem gap (play on the left of mute). */
-  .mute-btn { right: 2rem; }
-  .play-btn { right: calc(2rem + 50px + 1rem); }
   .media-btn:hover { color: var(--gold); transform: scale(1.08); }
   .media-btn svg { width: 20px; height: 20px; }
   .mute-btn .icon-unmute { display: none; }
@@ -836,23 +842,25 @@
   </div>
   <div class="hero__scroll">Scroll</div>
 
-  <!-- MEDIA CONTROLS (anchored inside the hero) -->
-  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir" title="Reproducir / pausar">
-    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
-    </svg>
-  </button>
-  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido" aria-pressed="false">
-    <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-    </svg>
-    <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-    </svg>
-  </button>
+  <!-- MEDIA CONTROLS (anchored inside the hero, bottom-right) -->
+  <div class="media-controls">
+    <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir" title="Reproducir / pausar">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
+      </svg>
+    </button>
+    <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido" aria-pressed="false">
+      <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+      <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+    </button>
+  </div>
 </header>
 
 <!-- BIOGRAFÍA -->
