@@ -102,15 +102,18 @@
     list-style: none;
   }
 
-  /* Language switcher (visual only for now) */
+  /* Language switcher */
   .nav__lang {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    position: relative;
     font-family: var(--sans);
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .nav__lang-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   .nav__lang button {
     background: none;
@@ -126,6 +129,15 @@
   .nav__lang button:hover { opacity: 1; color: var(--gold); }
   .nav__lang button.is-active { color: var(--gold); opacity: 1; }
   .nav__lang .sep { color: var(--plaster); opacity: 0.4; }
+  /* Compact "ES ▾" toggle — shown on mobile only */
+  .nav__lang-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .nav__lang .nav__lang-toggle { opacity: 1; color: var(--plaster); }
+  .nav__lang-caret { font-size: 0.85em; transition: transform 0.3s ease; }
+  .nav__lang.open .nav__lang-caret { transform: rotate(180deg); }
   .nav__links a {
     font-family: var(--sans);
     font-size: 0.75rem;
@@ -664,7 +676,36 @@
     }
     .nav.open .nav__links { opacity: 1; visibility: visible; }
     .nav__links a { font-size: 1.1rem; letter-spacing: 0.2em; }
-    .nav__lang { display: none; }
+
+    /* Mobile language switcher: compact toggle + vertical dropdown,
+       sitting just left of the hamburger. */
+    .nav__lang {
+      display: block;
+      order: 2;
+      margin-left: auto;
+      z-index: 140;
+    }
+    .nav__toggle { order: 3; margin-left: 1.1rem; }
+    .nav__lang-toggle { display: inline-flex; }
+    .nav__lang-menu {
+      position: absolute;
+      top: calc(100% + 0.7rem);
+      right: 0;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.9rem;
+      background: var(--black-red);
+      border: 1px solid var(--gold);
+      padding: 0.9rem 1.3rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+    .nav__lang.open .nav__lang-menu { opacity: 1; visibility: visible; transform: none; }
+    .nav__lang-menu .sep { display: none; }
+    .nav__lang-menu button { font-size: 0.85rem; opacity: 0.7; }
+    .nav__lang-menu button.is-active { opacity: 1; }
 
     /* Mobile autoplay is unreliable: drop the video and use a gradient
        backdrop behind the hero text instead. */
@@ -711,12 +752,17 @@
     <li><a href="#conciertos" data-i18n="nav.conciertos">Conciertos</a></li>
     <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
   </ul>
-  <div class="nav__lang" id="navLang" role="group" aria-label="Idioma">
-    <button type="button" data-lang="es" class="is-active" aria-pressed="true">ES</button>
-    <span class="sep">·</span>
-    <button type="button" data-lang="ja" aria-pressed="false">JA</button>
-    <span class="sep">·</span>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  <div class="nav__lang" id="navLang">
+    <button type="button" class="nav__lang-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Idioma">
+      <span class="nav__lang-current">ES</span><span class="nav__lang-caret" aria-hidden="true">▾</span>
+    </button>
+    <div class="nav__lang-menu" role="group" aria-label="Idioma">
+      <button type="button" data-lang="es" class="is-active" aria-pressed="true">ES</button>
+      <span class="sep">·</span>
+      <button type="button" data-lang="ja" aria-pressed="false">JA</button>
+      <span class="sep">·</span>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
   </div>
 </nav>
 
@@ -1042,7 +1088,15 @@
     en: 'Sohta Nakabayashi · Classical Guitarist'
   };
   const i18nNodes = document.querySelectorAll('[data-i18n]');
-  const langButtons = document.querySelectorAll('#navLang button');
+  const navLang = document.getElementById('navLang');
+  const langButtons = navLang.querySelectorAll('button[data-lang]');
+  const langToggleBtn = navLang.querySelector('.nav__lang-toggle');
+  const langCurrent = navLang.querySelector('.nav__lang-current');
+
+  const closeLangMenu = () => {
+    navLang.classList.remove('open');
+    if (langToggleBtn) langToggleBtn.setAttribute('aria-expanded', 'false');
+  };
 
   function applyLang(lang) {
     const dict = I18N[lang] || I18N.es;
@@ -1057,6 +1111,8 @@
       b.classList.toggle('is-active', active);
       b.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
+    if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+    closeLangMenu();
     try { localStorage.setItem('lang', lang); } catch (e) {}
   }
 
@@ -1064,14 +1120,21 @@
     b.addEventListener('click', () => applyLang(b.dataset.lang))
   );
 
-  // Restore saved choice, else honor browser language, else default ES.
-  let initial = 'es';
-  try { initial = localStorage.getItem('lang') || initial; } catch (e) {}
-  if (!localStorage.getItem('lang')) {
-    const nav0 = (navigator.language || 'es').toLowerCase();
-    if (nav0.startsWith('ja')) initial = 'ja';
-    else if (nav0.startsWith('en')) initial = 'en';
+  // Mobile dropdown toggle.
+  if (langToggleBtn) {
+    langToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLang.classList.toggle('open');
+      langToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e) => {
+      if (!navLang.contains(e.target)) closeLangMenu();
+    });
   }
+
+  // Default to ES; respect a previously saved choice.
+  let initial = 'es';
+  try { initial = localStorage.getItem('lang') || 'es'; } catch (e) {}
   applyLang(initial);
 
   /* ---------- Navbar scroll state ---------- */
