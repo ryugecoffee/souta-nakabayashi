@@ -1371,7 +1371,7 @@
   const mediaControls = document.querySelector('.media-controls');
   const updateControls = () => {
     const threshold = window.innerWidth <= 768
-      ? window.innerHeight * 0.3
+      ? window.innerHeight * 0.15
       : window.innerHeight * 0.8;
     if (window.scrollY > threshold) {
       mediaControls.style.opacity = '0';
