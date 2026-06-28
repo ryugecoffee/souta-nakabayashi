@@ -309,6 +309,7 @@
     font-size: clamp(1rem, 1.3vw, 1.12rem);
     color: var(--plaster-dim);
   }
+  .bio__body p + p { margin-top: 1.3rem; }
   @media (min-width: 880px) {
     .bio {
       grid-template-columns: 0.9fr 1.1fr;
@@ -328,7 +329,16 @@
     margin-bottom: 3rem;
     max-width: 28ch;
   }
-  .award-list { list-style: none; }
+  .award-year {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--carmen);
+    letter-spacing: 0.06em;
+    margin: 2.8rem 0 0.2rem;
+  }
+  .award-year:first-of-type { margin-top: 0; }
+  .award-list { list-style: none; margin-bottom: 0.4rem; }
   .award-list li {
     display: flex;
     align-items: baseline;
@@ -551,13 +561,20 @@
   <h2 class="section__title reveal" data-delay="1">Biografía</h2>
   <div class="bio">
     <p class="bio__lead reveal" data-delay="1">Un sonido delicado y expresivo desde Japón hacia los escenarios de Europa.</p>
-    <p class="bio__body reveal" data-delay="2">
-      Nacido en Japón, Sohta Nakabayashi es uno de los guitarristas clásicos jóvenes
-      más destacados de su generación. Actualmente estudia en el Centro Superior de
-      Enseñanza Musical Katarina Gurska en España, donde perfecciona su arte bajo la
-      influencia de las grandes tradiciones guitarrísticas europeas. Su sonido delicado
-      y expresivo eleva al público hacia una experiencia sensorial única a través de la música.
-    </p>
+    <div class="bio__body reveal" data-delay="2">
+      <p>
+        Nacido en Yokohama, Japón, Sohta Nakabayashi comenzó a estudiar guitarra a los 3 años.
+        En 2018, se graduó con el primer premio del Real Conservatorio Superior de Música de Madrid,
+        bajo la tutela de Miguel Trapaga. Actualmente cursa el máster en el Centro Superior de
+        Enseñanza Musical Katarina Gurska, donde estudia con Pedro Mateo.
+      </p>
+      <p>
+        Ha ofrecido más de 50 conciertos en España y ha actuado como solista con la Orquesta
+        Sinfónica de RTVE, la Orquesta Sinfónica de Tapiola (Finlandia) y la Orquesta Sinfónica
+        Carlos III. Ha actuado en el Auditorio del Museo Nacional del Prado y en salas de toda Europa,
+        América y Japón.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -567,20 +584,29 @@
 <section class="section" id="premios">
   <p class="eyebrow reveal">02 — Reconocimientos</p>
   <h2 class="section__title reveal" data-delay="1">Premios <em>Internacionales</em></h2>
-  <p class="premios__sub reveal" data-delay="1">Más de 11 primeros premios en competiciones internacionales</p>
+  <p class="premios__sub reveal" data-delay="1">Más de 20 premios en competiciones internacionales de todo el mundo</p>
+
+  <h3 class="award-year reveal">2024</h3>
   <ul class="award-list">
-    <li class="reveal">
-      <span class="num">I</span>
-      <span class="award-place"><strong>Primer Premio</strong> — Certamen Internacional de Guitarra Llobet de Barcelona</span>
-    </li>
-    <li class="reveal" data-delay="1">
-      <span class="num">II</span>
-      <span class="award-place"><strong>Finalista</strong> — [competición placeholder]</span>
-    </li>
-    <li class="reveal" data-delay="2">
-      <span class="num">III</span>
-      <span class="award-place"><strong>Premio Especial</strong> — [competición placeholder]</span>
-    </li>
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Guitarra Miguel Llobet, Barcelona (España)</span></li>
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Guitarra de Tubinga (Alemania)</span></li>
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Texas International Guitar Competition (EE.UU.)</span></li>
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Concurso Internacional de Gandía (España)</span></li>
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — Juventudes Musicales (España)</span></li>
+    <li class="reveal"><span class="award-place"><strong>2º Premio</strong> — Concurso Internacional Mantovani (Italia)</span></li>
+    <li class="reveal"><span class="award-place"><strong>3er Premio</strong> — Concurso Internacional José Tomás (España)</span></li>
+    <li class="reveal"><span class="award-place"><strong>3er Premio</strong> — Concurso Internacional de la Alhambra (España)</span></li>
+  </ul>
+
+  <h3 class="award-year reveal">2022</h3>
+  <ul class="award-list">
+    <li class="reveal"><span class="award-place"><strong>Semifinalista</strong> — Concurso Internacional de Guitarra Francisco Tárrega (España)</span></li>
+  </ul>
+
+  <h3 class="award-year reveal">2021</h3>
+  <ul class="award-list">
+    <li class="reveal"><span class="award-place"><strong>1er Premio</strong> — [placeholder]</span></li>
+    <li class="reveal"><span class="award-place"><strong>2º Premio</strong> — [placeholder]</span></li>
   </ul>
 </section>
 
@@ -592,18 +618,38 @@
   <h2 class="section__title reveal" data-delay="1">Conciertos <em>Recientes</em></h2>
   <ul class="timeline">
     <li class="reveal">
+      <p class="ev-name">Orquesta Sinfónica de RTVE</p>
+      <p class="ev-place">Gira de conciertos, España (2025, previsto)</p>
+    </li>
+    <li class="reveal">
+      <p class="ev-name">Concierto en 20 ciudades españolas</p>
+      <p class="ev-place">Gira en solitario (2025, previsto)</p>
+    </li>
+    <li class="reveal">
+      <p class="ev-name">Auditorio del Museo Nacional del Prado, Madrid</p>
+      <p class="ev-place">Concierto con RCSMM</p>
+    </li>
+    <li class="reveal">
       <p class="ev-name">Festival Internacional de Guitarra Emilio Pujol</p>
     </li>
-    <li class="reveal" data-delay="1">
+    <li class="reveal">
       <p class="ev-name">Festival de Guitarra de la Ciudad de Elx</p>
     </li>
-    <li class="reveal" data-delay="2">
+    <li class="reveal">
       <p class="ev-name">Garrigues Guitarfest 2025</p>
       <p class="ev-place">Església Sant Salvador, Torrebesses</p>
     </li>
-    <li class="reveal" data-delay="3">
-      <p class="ev-name">[lugar placeholder]</p>
-      <p class="ev-place">[fecha placeholder]</p>
+    <li class="reveal">
+      <p class="ev-name">Orquesta Sinfónica de Tapiola (Finlandia)</p>
+      <p class="ev-place">Concierto de Aranjuez</p>
+    </li>
+    <li class="reveal">
+      <p class="ev-name">Orquesta Sinfónica Carlos III (España)</p>
+      <p class="ev-place">Concierto de Aranjuez</p>
+    </li>
+    <li class="reveal">
+      <p class="ev-name">Recientemente en Europa, América y Japón</p>
+      <p class="ev-place">Conciertos y masterclasses</p>
     </li>
   </ul>
 </section>
