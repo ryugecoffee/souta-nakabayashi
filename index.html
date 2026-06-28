@@ -608,17 +608,12 @@
   }
   .modal__card strong { font-weight: 600; }
 
-  /* Media controls (play/pause + mute, bottom-right) */
-  .media-controls {
-    position: fixed;
-    bottom: 1.6rem; right: 1.6rem;
-    z-index: 120;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: opacity 0.3s ease;
-  }
+  /* Media controls — anchored inside the hero's first screen so they
+     scroll away with the page instead of following the viewport. */
   .media-btn {
+    position: absolute;
+    top: calc(100vh - 50px - 2rem);
+    z-index: 3;
     width: 50px; height: 50px;
     border: none;
     background: none;
@@ -629,6 +624,8 @@
     justify-content: center;
     transition: color 0.3s ease, transform 0.3s ease;
   }
+  .play-btn { left: 2rem; }
+  .mute-btn { right: 2rem; }
   .media-btn:hover { color: var(--gold); transform: scale(1.08); }
   .media-btn svg { width: 20px; height: 20px; }
   .mute-btn .icon-unmute { display: none; }
@@ -726,9 +723,6 @@
     body.video-active .hero__video { display: block; }
     body.video-active .hero__overlay { display: block; }
   }
-
-  /* Hide the media controls while the full-screen menu is open. */
-  .nav.open ~ .media-controls { opacity: 0; pointer-events: none; }
 
   /* Cookie banner */
   .cookie {
@@ -840,6 +834,24 @@
     </p>
   </div>
   <div class="hero__scroll">Scroll</div>
+
+  <!-- MEDIA CONTROLS (anchored inside the hero) -->
+  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir" title="Reproducir / pausar">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
+    </svg>
+  </button>
+  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido" aria-pressed="false">
+    <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
 </header>
 
 <!-- BIOGRAFÍA -->
@@ -1011,26 +1023,6 @@
       voluntariamente a través del formulario de contacto.
     </p>
   </div>
-</div>
-
-<!-- MEDIA CONTROLS -->
-<div class="media-controls">
-  <button class="media-btn play-btn" id="playBtn" aria-label="Reproducir" title="Reproducir / pausar">
-    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <rect x="6" y="5" width="4" height="14" rx="0.5"/><rect x="14" y="5" width="4" height="14" rx="0.5"/>
-    </svg>
-  </button>
-  <button class="media-btn mute-btn" id="muteBtn" aria-label="Activar sonido" title="Activar / silenciar sonido" aria-pressed="false">
-    <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-    </svg>
-    <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-    </svg>
-  </button>
 </div>
 
 <!-- COOKIE BANNER -->
