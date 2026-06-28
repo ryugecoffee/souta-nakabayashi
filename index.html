@@ -624,8 +624,9 @@
     justify-content: center;
     transition: color 0.3s ease, transform 0.3s ease;
   }
-  .play-btn { left: 2rem; }
+  /* Side by side at bottom-right, 1rem gap (play on the left of mute). */
   .mute-btn { right: 2rem; }
+  .play-btn { right: calc(2rem + 50px + 1rem); }
   .media-btn:hover { color: var(--gold); transform: scale(1.08); }
   .media-btn svg { width: 20px; height: 20px; }
   .mute-btn .icon-unmute { display: none; }
