@@ -645,7 +645,7 @@
   }
 
   /* ---------- Mobile ---------- */
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     .nav__toggle { display: flex; }
     .nav__links {
       position: fixed;
@@ -669,8 +669,20 @@
     .nav__links a { font-size: 1.1rem; letter-spacing: 0.2em; }
     .nav__lang { display: none; }
 
-    /* Mobile keeps the video; pointer-events:none guards against mistaps. */
-    .hero__video { pointer-events: none; }
+    /* Mobile autoplay is unreliable: drop the video and use a gradient
+       backdrop behind the hero text instead. */
+    .hero__video { display: none; }
+    .hero__overlay { display: none; }
+    .hero {
+      background: linear-gradient(
+        135deg,
+        #1a0a0a 0%,
+        #2d1010 30%,
+        #1a0a0a 60%,
+        #0d0505 100%
+      );
+    }
+    .mute-btn { display: none; }
   }
 
   /* Hide the mute button while the full-screen menu is open. */
@@ -1129,13 +1141,16 @@
   onParallax();
   window.addEventListener('scroll', onParallax, { passive: true });
 
-  /* ---------- YouTube IFrame API (desktop + mobile) ---------- */
+  /* ---------- YouTube IFrame API (desktop only) ---------- */
   let player = null;
   const VIDEO_ID = 'PFlrFLjy4O8';
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-  const ytTag = document.createElement('script');
-  ytTag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(ytTag);
+  if (!isMobile) {
+    const ytTag = document.createElement('script');
+    ytTag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(ytTag);
+  }
 
   window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player('ytplayer', {
