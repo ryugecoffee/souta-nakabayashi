@@ -1,0 +1,16 @@
+/* Keep the long, unbroken hero surname inside narrow phone viewports. */
+@media (max-width: 420px) {
+  .hero__inner {
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 11.5vw, 2.8rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .hero__meta {
+    letter-spacing: 0.24em;
+  }
+}
