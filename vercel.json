@@ -2,6 +2,24 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</responsive-fix.css>; rel=\"stylesheet\""
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</responsive-fix.css>; rel=\"stylesheet\""
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
